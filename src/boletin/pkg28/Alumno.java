@@ -8,21 +8,19 @@ import javax.swing.JOptionPane;
  * @author dfernandezguerreiro
  */
 public class Alumno {
-    String nome="David";
-    int nota=8;
-    Enderezo enderezo;
+    private String nome;
+    private int nota;
+    private Enderezo enderezo;
     
-    Enderezo obxE=new Enderezo();
 
     public Alumno() {
     }
 
-    public Alumno(String nome, int nota, Enderezo enderezo) {
+    public Alumno(String nome, int nota, String rua, int num) {
         this.nome=nome;
         this.nota=nota;
-        this.enderezo=enderezo;
+        enderezo=new Enderezo(rua,num);
     }
-
 
     public String getNome() {
         return nome;
@@ -48,24 +46,36 @@ public class Alumno {
         this.enderezo=enderezo;
     }
 
+    @Override
+    public String toString() {
+        return "Nome: "+nome+", nota: "+nota;
+    }
+    
     public void cambiarNota(){
         nota=Integer.parseInt(JOptionPane.showInputDialog("Cambiar la nota: "));
         System.out.println("\nNota cambiada: ");
         amosar();
     }
     
-    public void amosar(){
-        System.out.println("Nome: "+nome+", nota: "+nota+", Enderezo: "+obxE.getRua()+", "+obxE.getNumero());
+    public void cambiarRua(){
+        enderezo.rua=JOptionPane.showInputDialog("Cambiar a rua: ");
+        System.out.println("\nRua cambiada: ");
+        amosar();
     }
     
-    public void verEnderezo(){ 
-        Enderezo en=new Enderezo();
-        en.cambiarRua();
+    public void amosar(){
+        System.out.println("Nome: "+nome+", nota: "+nota+", Enderezo: "+enderezo.getRua()+", "+enderezo.getNumero());
     }
+    
     
     private class Enderezo{
-        String rua="Garcia Barbón";
-        int numero=6;
+        private String rua="Garcia Barbón";
+        private int numero=6;
+
+        private Enderezo(String rua, int num) {
+            rua=rua;
+            numero=num;
+        }
         
         public String getRua() {
             return rua;
@@ -81,16 +91,6 @@ public class Alumno {
 
         public void setNumero(int numero) {
             this.numero=numero;
-        }
- 
-        public void cambiarRua(){
-            rua=JOptionPane.showInputDialog("Cambiar a rua: ");
-            System.out.println("\nRua cambiada: ");
-            amosar();
-        }
-        
-        public void amosar(){
-        System.out.println("Nome: "+nome+", nota: "+nota+", Enderezo: "+rua+", "+numero);
         }
         
     }
